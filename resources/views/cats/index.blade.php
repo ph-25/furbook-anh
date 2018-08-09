@@ -33,8 +33,8 @@ All @if (isset($bread)){{$breed->name}}@endif Cats
 			<th>{{$cat->name}}</th>
 			<th>{{$cat->date_of_birth}}</th>
 			<th>{{$cat->breed->name}}</th>
-			<th><a href="#">Edit</th>
-			<th><a href="#">Delete</th>
+			<th><a href="{{ url('cats/'.$cat->id.'/edit') }}">Edit</th>
+			<th><a href="{{ url('cats/'.$cat->id.'/delete') }">Delete</th>
 		</tr>
 		@endforeach
 	</tbody>

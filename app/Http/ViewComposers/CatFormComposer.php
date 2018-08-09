@@ -1,38 +1,26 @@
-?php
-
-namespace App\Providers;
-
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
-
 <?php
-
-namespace App\Http\ViewComposers;
-
+namespace Furbook\Http\ViewComposers;
 use Illuminate\View\View;
-use App\Repositories\UserRepository;
-
+use Furbook\Breed;
 class CatFormComposer
 {
-    /**
+    /** Dang ký
      * The user repository implementation.
      *
      * @var Breed
      */
     protected $breeds;
-
     /**
      * Create a new profile composer.
      *
-     * @param  Breed $breeds
+     * @param  UserRepository  $users
      * @return void
      */
     public function __construct(Breed $breeds)
     {
         // Dependencies automatically resolved by service container...
-        $this->breed = $breeds;
+        $this->breeds = $breeds;
     }
-
     /**
      * Bind data to the view.
      *
@@ -41,6 +29,7 @@ class CatFormComposer
      */
     public function compose(View $view)
     {
-        $view->with('count', $this->breeds->count());
+        //dd($this->breeds->pluck('name','id'));
+        $view->with('breeds', $this->breeds->pluck('name','id'));
     }
 }

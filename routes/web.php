@@ -56,10 +56,32 @@ Route::get('/cats/create',function(){
 Route::post('/cats',function(){
 	dd(Request::all());
 	$data = Request::all();
-	$cat = Cat::create($data);
+	$cat = Furbook\Cat::create($data);
 	return redirect('/cats/'. $cat->id)
 	 ->withSuccess('Create cat success');
 });
 
+//show page edit a cat
+
+Route::get('/cats/{id}/edit', function($id){
+	$cat = Furbook\Cat::find($id);
+	return view ('cats.edit')->with('cat', $cat);
+});
 
 
+
+//update a cat
+Route::put('/cats/{id}', function($id){
+	$data = Request::all();
+	$cat = Furbook\Cat::find($id);
+	$cat->update($data);
+	return redirect('/cats/'.$cat->id)
+	->withSuccess('Create cat success');
+});
+
+//delete a cat
+Route::get('/cats/{cat}/delete',function(Furbook\Cat $cat){
+	$cat->delete();
+	return redirect('cats')
+	->withSuccess('Cat has been deleted');
+});
